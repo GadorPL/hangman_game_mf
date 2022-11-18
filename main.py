@@ -1,11 +1,6 @@
 import os
 import random
 
-
-def clear_console():
-    os.system('cls')
-
-
 word_list = ["aardvark", "baboon", "camel"]
 chosen_word = random.choice(word_list)
 
@@ -16,17 +11,18 @@ print(display)
 # Testing code
 print(f'Pssst, the solution is {chosen_word}.')
 
-guess = input("Guess a letter: ").lower()
-word_len = len(chosen_word)
+game_over = False
 
-index = -1
-for letter in chosen_word:
-    index += 1
-    if guess == letter:
-        display[index] = letter
-        print("Right")
-    else:
-        print("Wrong")
+while not game_over:
+    guess = input("Guess a letter: ").lower()
+    index = 0
+    for letter in chosen_word:
+        if guess == letter:
+            display[index] = letter
+        index += 1
+    print(display)
 
-clear_console()
-print(display)
+if "_" not in display:
+    print("You win!")
+    game_over = True
+
