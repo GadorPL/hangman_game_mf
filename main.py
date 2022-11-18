@@ -1,5 +1,10 @@
-# This is a sample Python script.
+import random
+word_list = ["aardvark", "baboon", "camel"]
+chosen_word = random.choice(word_list)
+guess = input("Guess a letter: ").lower()
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
+for letter in chosen_word:
+    if guess == letter:
+        print("Right")
+    else:
+        print("Wrong")
