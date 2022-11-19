@@ -1,82 +1,28 @@
-import os
 import random
+from art import *
+from words import *
 
-stages = ['''
-  +---+
-  |   |
-  O   |
- /|\  |
- / \  |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
- /|\  |
- /    |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
- /|\  |
-      |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
- /|   |
-      |
-      |
-=========''', '''
-  +---+
-  |   |
-  O   |
-  |   |
-      |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
-      |
-      |
-      |
-=========
-''', '''
-  +---+
-  |   |
-      |
-      |
-      |
-      |
-=========
-''']
-word_list = ["aardvark", "baboon", "camel"]
+
 chosen_word = random.choice(word_list)
 lives = 6
-wrong_guesses = []
+previous_choices = []
+
+print(logo, "\n")
 
 display = []
 for letter in chosen_word:
     display.append("_")
 print(f"{' '.join(display)}")
-# Testing code
-print(f'Pssst, the solution is {chosen_word}.')
 
 
 game_over = False
 
 while not game_over:
     print(stages[lives])
-    if len(wrong_guesses) > 0:
-        print(f"Wrong guesses: {' '.join(wrong_guesses)}")
     guess = input("Guess a letter: ").lower()
+    if guess in previous_choices:
+        print(f"You've already guessed '{guess}'. Try again.")
+    previous_choices.append(guess)
     index = 0
     for letter in chosen_word:
         if guess == letter:
@@ -84,13 +30,14 @@ while not game_over:
         index += 1
     print(f"{' '.join(display)}")
     if guess not in chosen_word:
+        print(f"'{guess}' is not in the word. You lose a life.")
         lives -= 1
-        wrong_guesses.append(guess)
         if lives == 0:
             print("You lost.")
             game_over = True
+    elif "_" not in display:
+        print("You win!")
+        game_over = True
 
-if "_" not in display:
-    print("You win!")
-    game_over = True
+
 
